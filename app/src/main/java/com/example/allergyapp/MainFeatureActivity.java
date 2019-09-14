@@ -29,7 +29,6 @@ public class MainFeatureActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);
-        addListenerOnButton();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +39,7 @@ public class MainFeatureActivity extends AppCompatActivity {
         });
     }
 
-    public void addListenerOnButton() {
+    public void addListenerOnButton(View view) {
         String s = "";
         check1 = (CheckBox) findViewById(R.id.checkBox);
         check2 = (CheckBox) findViewById(R.id.checkBox);
@@ -66,4 +65,5 @@ public class MainFeatureActivity extends AppCompatActivity {
         Toast.makeText(MainFeatureActivity.this,s, Toast.LENGTH_LONG).show();
 
     }
+
 }
