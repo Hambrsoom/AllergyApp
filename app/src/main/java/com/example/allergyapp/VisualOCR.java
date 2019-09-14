@@ -10,20 +10,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -36,6 +39,8 @@ public class VisualOCR extends AppCompatActivity {
     private Button galleryBtn;
     private Button verifyAllergiesBtn;
     private Uri image_uri;
+    private TextView resultTv;
+    private TextView txtViewTop;
 
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 400;
@@ -48,10 +53,25 @@ public class VisualOCR extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setContentView(R.layout.activity_visual_ocr);
         cameraBtn = findViewById(R.id.cameraButton);
         galleryBtn = findViewById(R.id.galleryButton);
+        resultTv = findViewById(R.id.resultTv);
+        txtViewTop = findViewById(R.id.textView);
+        resultTv.setVisibility(View.GONE);
         verifyAllergiesBtn = findViewById(R.id.viewAllergiesBtn);
+        verifyAllergiesBtn.setVisibility(View.GONE);
+        verifyAllergiesBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                verifyAllergies();
+            }
+        });
 
         mPreviewIv = findViewById(R.id.imageIv);
 
@@ -183,30 +203,50 @@ public class VisualOCR extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 mPreviewIv.setImageURI(resultUri);
 
-                //get drawable bitmap
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
-                Bitmap bitmap = bitmapDrawable.getBitmap();
-                TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+                verifyAllergiesBtn.setVisibility(View.VISIBLE);
+                txtViewTop.setVisibility(View.GONE);
+                cameraBtn.setVisibility(View.GONE);
+                galleryBtn.setVisibility(View.GONE);
 
-                if (!recognizer.isOperational()){
-
-                }
-                else{
-                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                    SparseArray<TextBlock> items = recognizer.detect(frame);
-                    StringBuilder sb = new StringBuilder();
-
-                    for (int i =0; i < items.size(); i ++){
-                        TextBlock myItem = items.valueAt(i);
-                        sb.append(myItem.getValue());
-                        sb.append("\n");
-                    }
-                }
             }
             else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Toast.makeText(this, ""+error, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public void verifyAllergies(){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+        if (!recognizer.isOperational()){
+
+        }
+        else{
+            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+            SparseArray<TextBlock> items = recognizer.detect(frame);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i =0; i < items.size(); i ++){
+                TextBlock myItem = items.valueAt(i);
+                sb.append(myItem.getValue());
+                sb.append("\n");
+            }
+            resultTv.setVisibility(View.VISIBLE);
+            resultTv.setText(sb);
+        }
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }
