@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.allergyapp.R;
 import com.google.android.gms.vision.Frame;
@@ -35,6 +37,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class VerificationOCRFragment extends Fragment {
 
+    private Button cameraBtn;
+    private Button galleryBtn;
+    private Button viewAllergiesBtn;
+    private ImageView mPreviewIv;
+
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 400;
     private static final int IMAGE_PICK_GALLERY_CODE = 1000;
@@ -43,10 +50,10 @@ public class VerificationOCRFragment extends Fragment {
     String cameraPermission[];
     String storagePermission[];
     Uri image_uri;
-    ImageView mPreviewIv;
     EditText mResultEt;
 
     private VerificationOcrViewModel mViewModel;
+
 
     public static VerificationOCRFragment newInstance() {
         return new VerificationOCRFragment();
@@ -55,6 +62,14 @@ public class VerificationOCRFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.verification_ocr_fragment, container, false);
+        cameraBtn =
+                rootView.findViewById(R.id.cameraButton);
+        galleryBtn = rootView.findViewById(R.id.galleryButton);
+        viewAllergiesBtn= rootView.findViewById(R.id.viewAllergiesBtn);
+        mPreviewIv = rootView.findViewById(R.id.imageIv);
+
+        return rootView;
 
         // camera permission
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -81,6 +96,15 @@ public class VerificationOCRFragment extends Fragment {
 
     }
 
+    public void onCameraBtnClicked(View view){
+
+    }
+    public void onGalleryBtnClicked(View view){
+
+    }
+    public void onViewAllergiesBtnClicked(View view){
+
+    }
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(getActivity(), cameraPermission, CAMERA_REQUEST_CODE);
     }
