@@ -40,4 +40,5 @@ dependencies {
 
     //Vision library
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+    implementation "com.google.firebase:firebase-database:19.1.0"
 }
