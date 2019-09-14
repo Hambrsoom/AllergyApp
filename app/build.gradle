@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.lifecycle:viewmodel:1.1.0"
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
     //Image crop library
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
