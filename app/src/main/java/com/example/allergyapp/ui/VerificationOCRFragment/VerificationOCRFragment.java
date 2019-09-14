@@ -13,11 +13,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.example.allergyapp.R;
 import com.google.android.gms.vision.Frame;
@@ -39,78 +37,111 @@ public class VerificationOCRFragment extends Fragment {
 
     private Button cameraBtn;
     private Button galleryBtn;
-    private Button viewAllergiesBtn;
+    private Button verifyAllergiesBtn;
     private ImageView mPreviewIv;
+    private Uri image_uri;
 
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 400;
     private static final int IMAGE_PICK_GALLERY_CODE = 1000;
     private static final int IMAGE_PICK_CAMERA_CODE = 1001;
 
-    String cameraPermission[];
-    String storagePermission[];
-    Uri image_uri;
-    EditText mResultEt;
+    // camera permission
+    String[] cameraPermission;
+
+    // storage permission
+    String[] storagePermission;
+
 
     private VerificationOcrViewModel mViewModel;
-
 
     public static VerificationOCRFragment newInstance() {
         return new VerificationOCRFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.verification_ocr_fragment, container, false);
-        cameraBtn =
-                rootView.findViewById(R.id.cameraButton);
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        cameraBtn = rootView.findViewById(R.id.cameraButton);
+        cameraBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                onCameraBtnClicked();
+            }
+        });
+
         galleryBtn = rootView.findViewById(R.id.galleryButton);
-        viewAllergiesBtn= rootView.findViewById(R.id.viewAllergiesBtn);
+        galleryBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                onGalleryBtnClicked();
+            }
+        });
+
+        verifyAllergiesBtn = rootView.findViewById(R.id.viewAllergiesBtn);
+        verifyAllergiesBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                onVerifyAllergiesBtnClicked();
+            }
+        });
+
         mPreviewIv = rootView.findViewById(R.id.imageIv);
 
         return rootView;
-
-        // camera permission
-        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        // storage permission
-        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        return inflater.inflate(R.layout.verification_ocr_fragment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(VerificationOcrViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     // Camera option clicked
-    public void onClickCamera() {
+    public void onCameraBtnClicked(){
         if(!checkCameraPermission()) { // Request camera permission
             requestCameraPermission();
         }
-        else { // Permission allowed
+        else
             pickCamera();
+    }
+
+    // Gallery option clicked
+    public void onGalleryBtnClicked(){
+        if(!checkStoragePermission()) { // Request storage permission
+            requestStoragePermission();
         }
+        else
+            pickGallery();
+    }
+
+    public void onVerifyAllergiesBtnClicked(){
 
     }
 
-    public void onCameraBtnClicked(View view){
+    private boolean checkCameraPermission() {
+        boolean resultCam  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        boolean resultStorage  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
+        return resultCam && resultStorage;
     }
-    public void onGalleryBtnClicked(View view){
 
-    }
-    public void onViewAllergiesBtnClicked(View view){
+    private boolean checkStoragePermission() {
+        boolean resultStorage  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
+        return resultStorage;
     }
+
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(getActivity(), cameraPermission, CAMERA_REQUEST_CODE);
     }
 
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(getActivity(), storagePermission, STORAGE_REQUEST_CODE);
+    }
+
     private void pickCamera() {
-        // take a picture with the camera and store it to storage
+        // Take a picture with the camera and store it to storage
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Title");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Description");
@@ -121,40 +152,13 @@ public class VerificationOCRFragment extends Fragment {
         getActivity().startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
-    private boolean checkCameraPermission() {
-        boolean resultCam  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-        boolean resultStorage  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-
-        return resultCam && resultStorage;
-    }
-
-    public void onClickGallery() {
-        if(!checkStoragePermission()) { // Request storage permission
-            requestStoragePermission();
-        }
-        else {  // Permission allowed
-            pickGallery();
-        }
-    }
-
-    private boolean checkStoragePermission() {
-        boolean resultStorage  = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-
-        return resultStorage;
-    }
-
-    private void requestStoragePermission() {
-        ActivityCompat.requestPermissions(getActivity(), storagePermission, STORAGE_REQUEST_CODE);
-    }
-
     private void pickGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
-
     }
 
-    // handle permission request
+//     handle permission request
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch(requestCode) {
             case CAMERA_REQUEST_CODE:
@@ -227,9 +231,6 @@ public class VerificationOCRFragment extends Fragment {
                         sb.append(myItem.getValue());
                         sb.append("\n");
                     }
-
-                    // Set text to edit text
-                    mResultEt.setText(sb.toString());
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 // if there is any error
@@ -237,5 +238,12 @@ public class VerificationOCRFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(VerificationOcrViewModel.class);
+        // TODO: Use the ViewModel
     }
 }
