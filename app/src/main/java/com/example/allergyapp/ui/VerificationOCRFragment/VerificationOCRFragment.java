@@ -158,38 +158,6 @@ public class VerificationOCRFragment extends Fragment {
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
-//     handle permission request
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode) {
-            case CAMERA_REQUEST_CODE:
-                if(grantResults.length > 0) {
-                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if(cameraAccepted && writeStorageAccepted) {
-                        pickCamera();
-                    }
-                    else {
-                        Toast.makeText(getActivity().getApplicationContext(), "permission denied", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                break;
-            case STORAGE_REQUEST_CODE:
-                if(grantResults.length > 0) {
-                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if(writeStorageAccepted) {
-                        pickGallery();
-                    }
-                    else {
-                        Toast.makeText(getActivity().getApplicationContext(), "permission denied", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                break;
-        }
-    }
-
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
