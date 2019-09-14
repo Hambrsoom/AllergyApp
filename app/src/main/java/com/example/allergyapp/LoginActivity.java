@@ -45,37 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.password);
         btnLogin    = findViewById(R.id.login);
         btnRegister = findViewById(R.id.register);
-        String URL  = "https://api.edamx`am.com/search?q=chicken&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&from=0&to=3&calories=591-722&health=alcohol-free&fbclid=IwAR06ycJqPK2fdPHZ-unQg9wculhgvyNbMUZgzbtNZ8kqoNoNqHUlygo1waw";
-        RequestQueue rq = Volley.newRequestQueue(this);
-        JsonObjectRequest objReq = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("hits");
-//                            for(int i =0; i<jsonArray.length();i++){
-//                                JSONObject recipe = jsonArray.getJSONObject(i);
-//                                String label      = recipe.getString("label");
-//                                String image      = recipe.getString("image");
-//                                //String ingredients = recipe.getString("ingredientLines");
-//                                txt.append(label+", "+image);
-//                            }
-//                        } catch (JSONException e){
-//                            e.printStackTrace();
-//                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                            error.printStackTrace();
-                    }
-                }
-        );
-        rq.add(objReq);
     }
 
     public void onClickLogin(View view){

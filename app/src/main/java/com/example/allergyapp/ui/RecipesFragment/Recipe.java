@@ -3,19 +3,11 @@ package com.example.allergyapp.ui.RecipesFragment;
 import java.util.ArrayList;
 
 public class Recipe {
-    String imageUrl;
+    private String imageUrl;
     private int image;
-    String description;
+    private String description;
+    private String url;
 
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    String ingredients;
     String name;
     ArrayList<String> list;
 
@@ -27,19 +19,16 @@ public class Recipe {
         this.description = description;
     }
 
-
     public Recipe(){
         imageUrl= null;
         name= null;
         list= null;
     }
-    public Recipe(String title, String shortdesc, String ingredients){
+    public Recipe(String title, String shortdesc){
         this.name = title;
         this.description = shortdesc;
-        this.ingredients = ingredients;
 
     }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -70,5 +59,13 @@ public class Recipe {
 
     public void setList(ArrayList<String> list) {
         this.list = list;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
