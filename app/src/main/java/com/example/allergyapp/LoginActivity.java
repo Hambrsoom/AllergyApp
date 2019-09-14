@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.RequestQueue;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     Button btnRegister;
     FirebaseAuth mAuth;
+    TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +54,18 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("hits");
-                            for(int i =0; i<jsonArray.length();i++){
-                                JSONObject recipe = jsonArray.getJSONObject(i);
-                                String label      = recipe.getString("label");
-                                String image      = recipe.getString("image");
-                                String ingredients = recipe.getString("ingredientLines");
-
-                            }
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            JSONArray jsonArray = response.getJSONArray("hits");
+//                            for(int i =0; i<jsonArray.length();i++){
+//                                JSONObject recipe = jsonArray.getJSONObject(i);
+//                                String label      = recipe.getString("label");
+//                                String image      = recipe.getString("image");
+//                                //String ingredients = recipe.getString("ingredientLines");
+//                                txt.append(label+", "+image);
+//                            }
+//                        } catch (JSONException e){
+//                            e.printStackTrace();
+//                        }
                     }
                 },
                 new Response.ErrorListener() {
