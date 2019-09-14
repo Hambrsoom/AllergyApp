@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
-    String temp;
+    String temp="Empty";
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class ProfileFragment extends Fragment {
                         }if (temp.contains("Soy")) {
                             check6.setChecked(true);
                         }
+                        temp = "Empty";
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
