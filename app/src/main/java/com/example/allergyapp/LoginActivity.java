@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.password);
         btnLogin    = findViewById(R.id.login);
         btnRegister = findViewById(R.id.register);
-        String URL  = "https://api.edamam.com/search?q=chicken&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&from=0&to=3&calories=591-722&health=alcohol-free&fbclid=IwAR06ycJqPK2fdPHZ-unQg9wculhgvyNbMUZgzbtNZ8kqoNoNqHUlygo1waw";
+        String URL  = "https://api.edamx`am.com/search?q=chicken&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&from=0&to=3&calories=591-722&health=alcohol-free&fbclid=IwAR06ycJqPK2fdPHZ-unQg9wculhgvyNbMUZgzbtNZ8kqoNoNqHUlygo1waw";
         RequestQueue rq = Volley.newRequestQueue(this);
         JsonObjectRequest objReq = new JsonObjectRequest(
                 Request.Method.GET,

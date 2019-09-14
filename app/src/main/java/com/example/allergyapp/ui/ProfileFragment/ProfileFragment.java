@@ -52,12 +52,12 @@ public class ProfileFragment extends Fragment {
         allergies = rootview.findViewById(R.id.textView2);
         tx3  = rootview.findViewById(R.id.textView3);
 
-        check1 = (CheckBox)rootview.findViewById(R.id.checkBox);
-        check2 = (CheckBox)rootview.findViewById(R.id.checkBox2);
-        check3 = (CheckBox)rootview.findViewById(R.id.checkBox3);
-        check4 = (CheckBox)rootview.findViewById(R.id.checkBox4);
-        check5 = (CheckBox)rootview.findViewById(R.id.checkBox5);
-        check6 = (CheckBox)rootview.findViewById(R.id.checkBox6);
+        check1 = (CheckBox)rootview.findViewById(R.id.dairy);
+        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
+        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
+        check4 = (CheckBox)rootview.findViewById(R.id.soy);
+        check5 = (CheckBox)rootview.findViewById(R.id.shellfish);
+        check6 = (CheckBox)rootview.findViewById(R.id.eggs);
 
         //add listener for single value event
                 (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
@@ -111,12 +111,12 @@ public class ProfileFragment extends Fragment {
     public void onClickSave(View view){
 
         String s = "";
-        check1 = (CheckBox)rootview.findViewById(R.id.checkBox);
-        check2 = (CheckBox)rootview.findViewById(R.id.checkBox2);
-        check3 = (CheckBox)rootview.findViewById(R.id.checkBox3);
-        check4 = (CheckBox)rootview.findViewById(R.id.checkBox4);
-        check5 = (CheckBox)rootview.findViewById(R.id.checkBox5);
-        check6 = (CheckBox)rootview.findViewById(R.id.checkBox6);
+        check1 = (CheckBox)rootview.findViewById(R.id.dairy);
+        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
+        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
+        check4 = (CheckBox)rootview.findViewById(R.id.soy);
+        check5 = (CheckBox)rootview.findViewById(R.id.shellfish);
+        check6 = (CheckBox)rootview.findViewById(R.id.eggs);
 
         if (check1.isChecked()) {
             s += "Dairy,";
