@@ -117,12 +117,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="292dp"
         android:layout_marginLeft="292dp"
+        android:layout_marginStart="292dp"
         android:layout_marginTop="423dp"
+        android:onClick="onClickSave"
         android:text="Submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
