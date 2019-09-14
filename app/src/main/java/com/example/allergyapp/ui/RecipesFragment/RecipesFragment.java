@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 
 import com.example.allergyapp.R;
 
@@ -21,6 +23,7 @@ public class RecipesFragment extends Fragment {
     public static RecipesFragment newInstance() {
         return new RecipesFragment();
     }
+    TextView txt;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -32,6 +35,8 @@ public class RecipesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+
+
         // TODO: Use the ViewModel
     }
 
