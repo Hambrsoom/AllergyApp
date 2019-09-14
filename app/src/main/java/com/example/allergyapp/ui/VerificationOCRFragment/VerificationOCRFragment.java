@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.allergyapp.R;
 
@@ -17,7 +19,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class VerificationOCRFragment extends Fragment {
 
+    private Button cameraBtn;
+    private Button galleryBtn;
+    private Button viewAllergiesBtn;
+    private ImageView mPreviewIv;
+
     private VerificationOcrViewModel mViewModel;
+
 
     public static VerificationOCRFragment newInstance() {
         return new VerificationOCRFragment();
@@ -26,7 +34,14 @@ public class VerificationOCRFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.verification_ocr_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.verification_ocr_fragment, container, false);
+        cameraBtn =
+                rootView.findViewById(R.id.cameraButton);
+        galleryBtn = rootView.findViewById(R.id.galleryButton);
+        viewAllergiesBtn= rootView.findViewById(R.id.viewAllergiesBtn);
+        mPreviewIv = rootView.findViewById(R.id.imageIv);
+
+        return rootView;
     }
 
     @Override
@@ -47,6 +62,15 @@ public class VerificationOCRFragment extends Fragment {
 
     }
 
+    public void onCameraBtnClicked(View view){
+
+    }
+    public void onGalleryBtnClicked(View view){
+
+    }
+    public void onViewAllergiesBtnClicked(View view){
+
+    }
     private void requestCameraPermission() {
     }
 
