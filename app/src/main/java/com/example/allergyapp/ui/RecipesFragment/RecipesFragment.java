@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 
 import com.example.allergyapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,32 +21,47 @@ public class RecipesFragment extends Fragment {
 
     private RecipesViewModel mViewModel;
     private RecyclerView recyclerView;
-    String[] items = {"item0","item1", "item3"};
     RecyclerView.LayoutManager layoutManager;
     RecipesAdapter mAdapter;
+    List<Recipe> recipeList;
 
     public static RecipesFragment newInstance() {
         return new RecipesFragment();
     }
-    TextView txt;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.recipes_fragment, container, false);
-        recyclerView = rootView.findViewById(R.id.recipesRecyclerView);
-        recyclerView.setAdapter(new RecipesAdapter(getActivity().getApplicationContext(), items));
-
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
         recyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+            //initializing the productlist
+        recipeList = new ArrayList<>();
+
+
+        //adding some items to our list
+        recipeList.add(
+                new Recipe(
+                        "Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)",
+                        "13.3 inch, Silver, 1.35 kg",
+                        "hello there"));
+
+        recipeList.add(
+                new Recipe(
+                        "Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)",
+                        "13.3 inch, Silver, 1.35 kg",
+                        "hello there"));
+
+
 
         // specify an adapter
-        mAdapter = new RecipesAdapter(getActivity().getApplicationContext(), items);
+        mAdapter = new RecipesAdapter(getActivity().getApplicationContext(), recipeList);
         recyclerView.setAdapter(mAdapter);
-        return inflater.inflate(R.layout.recipes_fragment, container, false);
+        return rootView;
     }
 
     @Override
@@ -53,8 +69,6 @@ public class RecipesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
 
-
-        // TODO: Use the ViewModel
     }
 
 }
