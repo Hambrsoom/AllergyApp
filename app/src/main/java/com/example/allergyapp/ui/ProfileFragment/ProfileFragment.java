@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.allergyapp.MainFeatureActivity;
 import com.example.allergyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +49,6 @@ public class ProfileFragment extends Fragment {
         submitBtn = rootview.findViewById(R.id.submit);
         allergies = rootview.findViewById(R.id.textView2);
         tx3  = rootview.findViewById(R.id.textView3);
-
         check1 = (CheckBox)rootview.findViewById(R.id.dairy);
         check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
         check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
@@ -87,7 +84,6 @@ public class ProfileFragment extends Fragment {
                     }
 
                 });
-
         submitBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
