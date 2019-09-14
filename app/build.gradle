@@ -35,10 +35,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.lifecycle:viewmodel:1.1.0"
+
     //Image crop library
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
     //Vision library
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+
+    // Firebase
     implementation "com.google.firebase:firebase-database:19.1.0"
+
 }
