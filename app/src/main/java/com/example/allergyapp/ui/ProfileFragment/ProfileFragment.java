@@ -55,9 +55,9 @@ public class ProfileFragment extends Fragment {
         check1 = (CheckBox)rootview.findViewById(R.id.dairy);
         check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
         check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.soy);
+        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
         check5 = (CheckBox)rootview.findViewById(R.id.shellfish);
-        check6 = (CheckBox)rootview.findViewById(R.id.eggs);
+        check6 = (CheckBox)rootview.findViewById(R.id.soy);
 
         //add listener for single value event
                 (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
@@ -115,9 +115,9 @@ public class ProfileFragment extends Fragment {
         check1 = (CheckBox)rootview.findViewById(R.id.dairy);
         check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
         check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.soy);
+        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
         check5 = (CheckBox)rootview.findViewById(R.id.shellfish);
-        check6 = (CheckBox)rootview.findViewById(R.id.eggs);
+        check6 = (CheckBox)rootview.findViewById(R.id.soy);
 
         if (check1.isChecked()) {
             s += "Dairy,";
@@ -126,11 +126,15 @@ public class ProfileFragment extends Fragment {
         }if (check3.isChecked()) {
             s += "Tree Nuts,";
         }if (check4.isChecked()) {
-            s += "Soy,";
+            s += "Eggs,";
         }if (check5.isChecked()) {
             s += "Shellfish,";
         }if (check6.isChecked()) {
-            s += "Eggs,";
+            s += "Soy,";
+        }
+        if(!check1.isChecked() && !check2.isChecked() && !check3.isChecked() && !check4.isChecked() &&
+        !check5.isChecked() && !check6.isChecked()){
+            s += "Empty,";
         }
         if (s.length() > 1) {
             s = s.substring(0,s.length()-1);
