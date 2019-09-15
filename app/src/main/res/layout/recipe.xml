@@ -7,7 +7,8 @@
     <androidx.cardview.widget.CardView
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,16 +21,37 @@
                 android:layout_height="90dp"
                 android:padding="4dp" />
 
-            <TextView
-                android:id="@+id/textViewTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/recipeImage"
-                android:text="Title"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000"
-                android:textSize="20dp" />
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/recipeImage">
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:maxHeight="90dp"
+                    android:paddingBottom="10dp"
+                    android:text="Title"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="right"
+                    android:maxHeight="90dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="See Ingredients"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="16dp" />
+            </LinearLayout>
 
         </RelativeLayout>
 

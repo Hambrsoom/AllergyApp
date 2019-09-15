@@ -122,8 +122,8 @@ public class RecipesFragment extends Fragment {
                                         JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
                                         Recipe recipeObject = new Recipe();
                                         String recipe = hitsObject.getString("recipe");
-                                        String uriString = new JSONObject(recipe).getString("uri");
-                                        recipeObject.setDescription(uriString);
+                                        String uriString = new JSONObject(recipe).getString("url");
+                                        recipeObject.setRecipeUrl(uriString);
                                         String labelString = new JSONObject(recipe).getString("label");
                                         recipeObject.setName(labelString);
                                         String ingredients = new JSONObject(recipe).getString("ingredientLines");
