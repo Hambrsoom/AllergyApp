@@ -59,7 +59,7 @@ public class VisualOCR extends AppCompatActivity {
     private static final int STORAGE_REQUEST_CODE = 400;
     private static final int IMAGE_PICK_GALLERY_CODE = 1000;
     private static final int IMAGE_PICK_CAMERA_CODE = 1001;
-    List<String> allSynonyms = new ArrayList<>();
+
     String cameraPermission[];
     String storagePermission[];
     CardView cardView;
@@ -75,13 +75,11 @@ public class VisualOCR extends AppCompatActivity {
         setContentView(R.layout.activity_visual_ocr);
         cameraBtn = findViewById(R.id.cameraButton);
         galleryBtn = findViewById(R.id.galleryButton);
-        resultTv = findViewById(R.id.resultTv);
         txtViewTop = findViewById(R.id.textView);
-        resultTv.setVisibility(View.GONE);
+        verdictTv = findViewById(R.id.verdictTv);
         verifyAllergiesBtn = findViewById(R.id.viewAllergiesBtn);
         verifyAllergiesBtn.setVisibility(View.GONE);
         mPreviewIv = findViewById(R.id.imageIv);
-        verdictTv = findViewById(R.id.verdictTv);
         cardView = findViewById(R.id.cardView1);
 
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -120,13 +118,11 @@ public class VisualOCR extends AppCompatActivity {
             SparseArray<TextBlock> items = recognizer.detect(frame);
             sb = new StringBuilder();
 
-            for (int i =0; i < items.size(); i ++){
+            for (int i = 0; i < items.size(); i ++){
                 TextBlock myItem = items.valueAt(i);
                 sb.append(myItem.getValue());
                 sb.append("\n");
             }
-            resultTv.setVisibility(View.VISIBLE);
-            resultTv.setText(sb);
         }
 
         (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
@@ -143,8 +139,8 @@ public class VisualOCR extends AppCompatActivity {
                 }
 
                 // Can conclude it is not safe
-                verdictTv.setText("Oh helllll nah, put it back! This contains " + allergy + ".");
-                resultTv.setVisibility(View.GONE);
+                verdictTv.setText("Oh helllll nah, put it back! This contains " + allergy.toLowerCase() + ".");
+                verdictTv.setVisibility(View.VISIBLE);
                 verifyAllergiesBtn.setVisibility(View.GONE);
             }
             @Override
@@ -163,7 +159,7 @@ public class VisualOCR extends AppCompatActivity {
         return allergy;
     }
 
-    private List<String> getVerdictSynonyms(List<String> allergies) {
+    private void getVerdictSynonyms(List<String> allergies) {
 
         for(String a: allergies) {
             (FirebaseDatabase.getInstance().getReference()).child("synonym").child(a.toLowerCase()).addValueEventListener(new ValueEventListener() {
@@ -184,12 +180,11 @@ public class VisualOCR extends AppCompatActivity {
                         verdictTv.setText("No worries, you're good to go!");
                     }
                     else {
-                        verdictTv.setText("Oh helllll nah, put it back! This contains"  + allergy + ".");
+                        verdictTv.setText("Oh helllll nah, put it back! This contains"  + allergy.toLowerCase() + ".");
                     }
 
-                    mPreviewIv.setVisibility(View.GONE);
+                    verdictTv.setVisibility(View.VISIBLE);
                     verifyAllergiesBtn.setVisibility(View.GONE);
-                    resultTv.setVisibility(View.GONE);
 
                 }
                 @Override
@@ -198,7 +193,6 @@ public class VisualOCR extends AppCompatActivity {
             });
         }
 
-        return allSynonyms;
     }
 
     private List<String> convertStringOfAllergiesIntoArray(String stringOfAllergies) {
