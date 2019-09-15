@@ -50,6 +50,7 @@ public class RecipesFragment extends Fragment {
     List<Recipe> recipeList;
     RequestQueue rq;
     String allergies;
+    String search;
 
 
     public static RecipesFragment newInstance() {
@@ -70,6 +71,7 @@ public class RecipesFragment extends Fragment {
         header2.setVisibility(View.GONE);
         editText = rootView.findViewById(R.id.editText);
         searchRecipe = rootView.findViewById(R.id.searchRecipe);
+
         allergies = "";
         searchRecipe.setOnClickListener(new View.OnClickListener(){
 
@@ -91,64 +93,69 @@ public class RecipesFragment extends Fragment {
     }
 
     private void searchRecipe() {
-        String search = editText.getText().toString();
+        search = editText.getText().toString();
         (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 allergies = snapshot.getValue().toString();
-                String sr = allergies;
+                String URL  = "https://api.edamam.com/search?q="+search+"&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366";
+                if(!allergies.contains("Empty")){
+                    String[]tempArr = allergies.split(",");
+                    for(String str : tempArr){
+                        URL += "&excluded="+str;
+                    }
+                }
+                rq = Volley.newRequestQueue(getActivity().getApplicationContext());
+                JsonObjectRequest objReq = new JsonObjectRequest(
+                        Request.Method.GET,
+                        URL,
+                        null,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+
+                                    String hits = response.getString("hits");
+                                    recipeList.clear();
+                                    for (int i=0; i <= 9; i++) {
+                                        JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
+                                        Recipe recipeObject = new Recipe();
+                                        String recipe = hitsObject.getString("recipe");
+                                        String uriString = new JSONObject(recipe).getString("uri");
+                                        recipeObject.setDescription(uriString);
+                                        String labelString = new JSONObject(recipe).getString("label");
+                                        recipeObject.setName(labelString);
+                                        String ingredients = new JSONObject(recipe).getString("ingredientLines");
+                                        recipeObject.setIngredients(ingredients);
+                                        String image = new JSONObject(recipe).getString("image");
+                                        recipeObject.setImageUrl(image);
+                                        recipeList.add(recipeObject);
+
+                                    }
+                                    resultTv.setText(recipeList.size()+" Results");
+                                    header2.setVisibility(View.VISIBLE);
+                                    resultTv.setVisibility(View.VISIBLE);
+                                    mAdapter.notifyDataSetChanged();
+                                } catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                            }
+                        }
+                );
+                rq.add(objReq);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        String str = allergies;
-        String URL  = "https://api.edamam.com/search?q="+search+"&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366";
-        rq = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonObjectRequest objReq = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-                            String hits = response.getString("hits");
-                            recipeList.clear();
-                            for (int i=0; i <= 9; i++) {
-                                JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
-                                Recipe recipeObject = new Recipe();
-                                String recipe = hitsObject.getString("recipe");
-                                String uriString = new JSONObject(recipe).getString("uri");
-                                recipeObject.setDescription(uriString);
-                                String labelString = new JSONObject(recipe).getString("label");
-                                recipeObject.setName(labelString);
-                                String ingredients = new JSONObject(recipe).getString("ingredientLines");
-                                recipeObject.setIngredients(ingredients);
-                                String image = new JSONObject(recipe).getString("image");
-                                recipeObject.setImageUrl(image);
-                                recipeList.add(recipeObject);
-
-                            }
-                            resultTv.setText(recipeList.size()+" Results");
-                            header2.setVisibility(View.VISIBLE);
-                            resultTv.setVisibility(View.VISIBLE);
-                            mAdapter.notifyDataSetChanged();
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-        );
-        rq.add(objReq);
     }
 
     @Override
