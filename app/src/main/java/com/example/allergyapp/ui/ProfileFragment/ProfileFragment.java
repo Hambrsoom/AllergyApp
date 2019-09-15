@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.allergyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -131,8 +132,8 @@ public class ProfileFragment extends Fragment {
             s = s.substring(0,s.length()-1);
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
-        //Toast toast = Toast.makeText(ProfileFragment.this,"Generating PDF",Toast.LENGTH_LONG);
+        Toast.makeText(getActivity(),"Saved", Toast.LENGTH_LONG).show();
 
-        //ADD TOAST IN HERE LATER !
+
     }
 }
