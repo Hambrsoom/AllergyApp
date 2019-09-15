@@ -5,7 +5,6 @@ import android.content.Context;
 import com.example.allergyapp.R;
 import com.example.allergyapp.ui.ProfileFragment.ProfileFragment;
 import com.example.allergyapp.ui.RecipesFragment.RecipesFragment;
-import com.example.allergyapp.ui.VerificationOCRFragment.VerificationOCRFragment;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -20,7 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,R.string.tab_text_3 };
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_3 };
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -34,11 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         if (position == 0){
             return ProfileFragment.newInstance();
-        }
-        else if (position == 1){
-            return VerificationOCRFragment.newInstance();
-        }
-        else {
+        } else {
             return RecipesFragment.newInstance();
         }
     }
@@ -52,6 +47,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
 
-        return 3;
+        return 2;
     }
 }

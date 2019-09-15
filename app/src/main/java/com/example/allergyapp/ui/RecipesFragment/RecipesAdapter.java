@@ -19,6 +19,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     public String[] items;
     private List<Recipe> recipeList;
 
+
+
     public RecipesAdapter(Context context, List<Recipe> recipeList){
         this.context = context;
         this.recipeList = recipeList;

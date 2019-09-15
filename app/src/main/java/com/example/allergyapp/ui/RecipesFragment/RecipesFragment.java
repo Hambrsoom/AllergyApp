@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
+=======
+import android.widget.Button;
+>>>>>>> 29eb38f33e48df9b017df4ebfe3d710ff9f9854b
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -34,8 +38,12 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     private EditText editText;
     RecyclerView.LayoutManager layoutManager;
+    Button searchRecipe;
+    EditText editText;
     RecipesAdapter mAdapter;
     List<Recipe> recipeList;
+    RequestQueue rq;
+
 
     public static RecipesFragment newInstance() {
         return new RecipesFragment();
@@ -48,6 +56,19 @@ public class RecipesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipes_fragment, container, false);
         recyclerView = rootView.findViewById(R.id.recipesRecyclerView);
         recyclerView.setHasFixedSize(true);
+<<<<<<< HEAD
+=======
+        editText = rootView.findViewById(R.id.editText);
+        searchRecipe = rootView.findViewById(R.id.searchRecipe);
+        searchRecipe.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                searchRecipe();
+            }
+        });
+        // use a linear layout manager
+>>>>>>> 29eb38f33e48df9b017df4ebfe3d710ff9f9854b
 
         EditText editText = rootView.findViewById(R.id.editText);
         String searchTerm = editText.getText().toString();
@@ -57,6 +78,7 @@ public class RecipesFragment extends Fragment {
         // Initializing the product list
         recipeList = new ArrayList<>();
 
+<<<<<<< HEAD
         // Extract recipes for the search term
         String url = "https://api.edamam.com/search?q=" + searchTerm + "&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&fbclid=IwAR0iI2L9T_GoF8kEWBI-TwlHQA4HAk9Fa6ONq_y4cKZiPyzUBCXYM8TVeaw";
 
@@ -74,9 +96,59 @@ public class RecipesFragment extends Fragment {
 //                        "hello there"));
 
         // Specify an adapter
+=======
+        // specify an adapter
+>>>>>>> 29eb38f33e48df9b017df4ebfe3d710ff9f9854b
         mAdapter = new RecipesAdapter(getActivity().getApplicationContext(), recipeList);
         recyclerView.setAdapter(mAdapter);
         return rootView;
+    }
+
+    private void searchRecipe() {
+        String search = editText.getText().toString();
+        String URL  = "https://api.edamam.com/search?q="+search+"&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366";
+        rq = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonObjectRequest objReq = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            String hits = response.getString("hits");
+                            recipeList.clear();
+                            for (int i=0; i <= 9; i++) {
+                                JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
+                                Recipe recipeObject = new Recipe();
+                                String recipe = hitsObject.getString("recipe");
+                                String uriString = new JSONObject(recipe).getString("uri");
+                                recipeObject.setDescription(uriString);
+                                String labelString = new JSONObject(recipe).getString("label");
+                                recipeObject.setName(labelString);
+                                String ingredients = new JSONObject(recipe).getString("ingredientLines");
+                                recipeObject.setIngredients(ingredients);
+                                String image = new JSONObject(recipe).getString("image");
+                                recipeObject.setImageUrl(image);
+                                recipeList.add(recipeObject);
+
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        );
+        rq.add(objReq);
     }
 
     @Override
