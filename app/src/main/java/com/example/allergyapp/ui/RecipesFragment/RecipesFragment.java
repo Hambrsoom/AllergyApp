@@ -83,7 +83,7 @@ public class RecipesFragment extends Fragment {
 
     private void searchRecipe() {
         String search = editText.getText().toString();
-        dataSnapshot.getV
+
         String URL  = "https://api.edamam.com/search?q="+search+"&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366";
         rq = Volley.newRequestQueue(getActivity().getApplicationContext());
         JsonObjectRequest objReq = new JsonObjectRequest(

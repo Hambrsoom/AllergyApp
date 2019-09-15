@@ -1,5 +1,6 @@
 package com.example.allergyapp.ui.ProfileFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.allergyapp.LoginActivity;
 import com.example.allergyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -26,12 +29,10 @@ public class ProfileFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String email = user.getEmail();
     String UID   = user.getUid();
-    TextView allergies;
     Button submitBtn;
     TextView name ;
     View rootview;
-
-    TextView tx3;
+    private Button button;
 
     private CheckBox check1, check2, check3, check4, check5, check6;
 
@@ -55,13 +56,14 @@ public class ProfileFragment extends Fragment {
         check5 = (CheckBox)rootview.findViewById(R.id.fish);
         check6 = (CheckBox)rootview.findViewById(R.id.soy);
 
+
+
         //add listener for single value event
                 (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
 
                         temp = snapshot.getValue().toString();
-                        allergies.setText(temp);
 
                         if (temp.contains("Dairy")) {
                             check1.setChecked(true);
@@ -101,8 +103,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         // TODO: Use the ViewModel
+
     }
     public void onClickSave(View view){
 
@@ -135,7 +139,8 @@ public class ProfileFragment extends Fragment {
             s = s.substring(0,s.length()-1);
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
-        Toast toast = Toast.makeText(ProfileFragment.this,"Generating PDF",Toast.LENGTH_LONG);
-        //ADD TOAST IN HERE LATER !
+
+        Toast.makeText(getActivity(),"saved", Toast.LENGTH_LONG).show();
+
     }
 }
