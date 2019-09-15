@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,8 +34,9 @@ public class RecipesFragment extends Fragment {
 
     private RecipesViewModel mViewModel;
     private RecyclerView recyclerView;
-    private EditText editText;
     RecyclerView.LayoutManager layoutManager;
+    TextView resultTv;
+    TextView header2;
     Button searchRecipe;
     EditText editText;
     RecipesAdapter mAdapter;
@@ -51,9 +53,12 @@ public class RecipesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.recipes_fragment, container, false);
-        recyclerView = rootView.findViewById(R.id.recipesRecyclerView);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
         recyclerView.setHasFixedSize(true);
-
+        resultTv = rootView.findViewById(R.id.headerTv);
+        header2 = rootView.findViewById(R.id.headerTv2);
+        resultTv.setVisibility(View.GONE);
+        header2.setVisibility(View.GONE);
         editText = rootView.findViewById(R.id.editText);
         searchRecipe = rootView.findViewById(R.id.searchRecipe);
         searchRecipe.setOnClickListener(new View.OnClickListener(){
@@ -64,18 +69,12 @@ public class RecipesFragment extends Fragment {
             }
         });
         // use a linear layout manager
-        EditText editText = rootView.findViewById(R.id.editText);
-        String searchTerm = editText.getText().toString();
 
-        // Use a linear layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        // Initializing the product list
+            //initializing the productlist
         recipeList = new ArrayList<>();
 
-        // Extract recipes for the search term
-        String url = "https://api.edamam.com/search?q=" + searchTerm + "&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&fbclid=IwAR0iI2L9T_GoF8kEWBI-TwlHQA4HAk9Fa6ONq_y4cKZiPyzUBCXYM8TVeaw";
-
-        // Specify an adapter
+        // specify an adapter
         mAdapter = new RecipesAdapter(getActivity().getApplicationContext(), recipeList);
         recyclerView.setAdapter(mAdapter);
         return rootView;
@@ -112,6 +111,9 @@ public class RecipesFragment extends Fragment {
                                 recipeList.add(recipeObject);
 
                             }
+                            resultTv.setText(recipeList.size()+" Results");
+//                            header2.setVisibility(View.VISIBLE);
+                            resultTv.setVisibility(View.VISIBLE);
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e){
                             e.printStackTrace();
@@ -132,9 +134,7 @@ public class RecipesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+
     }
 
-
-
 }
-
