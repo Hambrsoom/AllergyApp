@@ -15,7 +15,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/recipeImage"
                 android:layout_width="120dp"
                 android:layout_height="90dp"
                 android:padding="4dp" />
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/imageView"
+                android:layout_toRightOf="@id/recipeImage"
                 android:text="Title"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"

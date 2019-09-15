@@ -55,6 +55,7 @@ public class RecipesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipes_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
         recyclerView.setHasFixedSize(true);
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
         resultTv = rootView.findViewById(R.id.headerTv);
         header2 = rootView.findViewById(R.id.headerTv2);
         resultTv.setVisibility(View.GONE);
@@ -112,7 +113,7 @@ public class RecipesFragment extends Fragment {
 
                             }
                             resultTv.setText(recipeList.size()+" Results");
-//                            header2.setVisibility(View.VISIBLE);
+                            header2.setVisibility(View.VISIBLE);
                             resultTv.setVisibility(View.VISIBLE);
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e){

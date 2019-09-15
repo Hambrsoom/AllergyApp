@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.allergyapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
@@ -34,7 +36,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.recipeImage);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
         }
     }
@@ -50,9 +52,24 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
-
+        
         Recipe recipe = recipeList.get(position);
         holder.textViewTitle.setText(recipe.getName());
+
+
+
+            Picasso.get()
+                    .load(recipe.getImageUrl())
+                    .placeholder(R.drawable.crop_image_menu_flip)
+                    .error(R.drawable.crop_image_menu_flip)
+                    // To fit image into imageView
+                    .fit()
+                    // To prevent fade animation
+                    .noFade()
+                    .into(holder.imageView);
+
+            holder.imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.crop_image_menu_flip));
+
 
     }
 
