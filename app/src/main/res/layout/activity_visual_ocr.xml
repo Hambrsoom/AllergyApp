@@ -101,6 +101,12 @@
                         android:textColor="@android:color/white" />
 
                     <TextView
+                        android:id="@+id/verdictTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp" />
+
+                    <TextView
                         android:id="@+id/resultTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
