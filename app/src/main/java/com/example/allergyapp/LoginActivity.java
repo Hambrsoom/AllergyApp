@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.password);
         btnLogin    = findViewById(R.id.login);
         btnRegister = findViewById(R.id.register);
+<<<<<<< HEAD
+=======
         rq = Volley.newRequestQueue(this);
         jsonParse();
 
@@ -100,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
         rq.add(objReq);
+>>>>>>> 29eb38f33e48df9b017df4ebfe3d710ff9f9854b
     }
 
     public void onClickLogin(View view){

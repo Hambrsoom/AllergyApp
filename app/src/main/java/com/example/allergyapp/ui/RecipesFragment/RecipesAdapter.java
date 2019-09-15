@@ -30,14 +30,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         ImageView imageView;
         TextView textViewTitle;
         TextView recipeDescr;
-        TextView textViewIngredient;
+        TextView textViewUrl;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             recipeDescr = itemView.findViewById(R.id.textViewShortDesc);
-            textViewIngredient = itemView.findViewById(R.id.textViewIngredient);
+            textViewUrl = itemView.findViewById(R.id.textViewIngredient);
         }
     }
 
@@ -56,7 +56,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         Recipe recipe = recipeList.get(position);
         holder.textViewTitle.setText(recipe.getName());
         holder.recipeDescr.setText(recipe.getDescription());
-        holder.textViewIngredient.setText(recipe.ingredients);
+        holder.textViewUrl.setText(recipe.getUrl());
 
     }
 
