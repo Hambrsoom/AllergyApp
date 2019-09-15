@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -39,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -62,7 +62,7 @@ public class VisualOCR extends AppCompatActivity {
     List<String> allSynonyms = new ArrayList<>();
     String cameraPermission[];
     String storagePermission[];
-
+    CardView cardView;
     StringBuilder sb;
 
     @Override
@@ -82,6 +82,7 @@ public class VisualOCR extends AppCompatActivity {
         verifyAllergiesBtn.setVisibility(View.GONE);
         mPreviewIv = findViewById(R.id.imageIv);
         verdictTv = findViewById(R.id.verdictTv);
+        cardView = findViewById(R.id.cardView1);
 
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -306,6 +307,7 @@ public class VisualOCR extends AppCompatActivity {
                 txtViewTop.setVisibility(View.GONE);
                 cameraBtn.setVisibility(View.GONE);
                 galleryBtn.setVisibility(View.GONE);
+                cardView.setVisibility(View.GONE);
 
             }
             else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
