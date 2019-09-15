@@ -14,13 +14,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.allergyapp.ui.RecipesFragment.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
     Button btnRegister;
     FirebaseAuth mAuth;
     TextView txt;
+    List<Recipe> recipeList = new ArrayList<>();
+    RequestQueue rq;
+    private final static String URL  = "https://api.edamam.com/search?q=salmon&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,33 +53,49 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.password);
         btnLogin    = findViewById(R.id.login);
         btnRegister = findViewById(R.id.register);
-        String URL  = "https://api.edamx`am.com/search?q=chicken&app_id=b535c32e&app_key=18bbb1d1d4d94b1f53dad01ca771b366&from=0&to=3&calories=591-722&health=alcohol-free&fbclid=IwAR06ycJqPK2fdPHZ-unQg9wculhgvyNbMUZgzbtNZ8kqoNoNqHUlygo1waw";
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
+        jsonParse();
+
+    }
+
+    private void jsonParse() {
+
+
         JsonObjectRequest objReq = new JsonObjectRequest(
                 Request.Method.GET,
                 URL,
                 null,
                 new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("hits");
-//                            for(int i =0; i<jsonArray.length();i++){
-//                                JSONObject recipe = jsonArray.getJSONObject(i);
-//                                String label      = recipe.getString("label");
-//                                String image      = recipe.getString("image");
-//                                //String ingredients = recipe.getString("ingredientLines");
-//                                txt.append(label+", "+image);
-//                            }
-//                        } catch (JSONException e){
-//                            e.printStackTrace();
-//                        }
+                        try {
+
+                            String hits = response.getString("hits");
+                            for (int i=0; i <= 9; i++) {
+                                JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
+                                Recipe recipeObject = new Recipe();
+                                String recipe = hitsObject.getString("recipe");
+                                String uriString = new JSONObject(recipe).getString("uri");
+                                recipeObject.setDescription(uriString);
+                                String labelString = new JSONObject(recipe).getString("label");
+                                recipeObject.setName(labelString);
+                                String ingredients = new JSONObject(recipe).getString("ingredientLines");
+                                recipeObject.setIngredients(ingredients);
+                                String image = new JSONObject(recipe).getString("image");
+                                recipeObject.setImageUrl(image);
+                                recipeList.add(recipeObject);
+
+                            }
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                            error.printStackTrace();
+                        error.printStackTrace();
                     }
                 }
         );
