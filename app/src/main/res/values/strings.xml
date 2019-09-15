@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AllergyApp</string>
+    <string name="app_name">AlertG</string>
     <string name="title_activity_main_feature">MainFeatureActivity</string>
     <string name="tab_text_1">Profile</string>
     <string name="tab_text_2">Verification</string>

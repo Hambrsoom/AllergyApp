@@ -4,6 +4,16 @@ import java.util.ArrayList;
 
 public class Recipe {
     String imageUrl;
+
+    public String getRecipeUrl() {
+        return recipeUrl;
+    }
+
+    public void setRecipeUrl(String recipeUrl) {
+        this.recipeUrl = recipeUrl;
+    }
+
+    String recipeUrl;
     private int image;
     String description;
 
@@ -33,10 +43,11 @@ public class Recipe {
         name= null;
         list= null;
     }
-    public Recipe(String title, String shortdesc, String ingredients){
+    public Recipe(String title, String shortdesc, String ingredients, String url){
         this.name = title;
         this.description = shortdesc;
         this.ingredients = ingredients;
+        this.recipeUrl = url;
 
     }
 

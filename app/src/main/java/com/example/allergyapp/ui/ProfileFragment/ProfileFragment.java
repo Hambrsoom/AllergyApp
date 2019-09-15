@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.allergyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +27,6 @@ public class ProfileFragment extends Fragment {
     String UID   = user.getUid();
     TextView allergies;
     Button submitBtn;
-    TextView name ;
     View rootview;
 
     TextView tx3;
@@ -46,7 +44,6 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         rootview =  inflater.inflate(R.layout.profile_fragment, container, false);
-        name = rootview.findViewById(R.id.textView);
         submitBtn = rootview.findViewById(R.id.submit);
         check1 = (CheckBox)rootview.findViewById(R.id.sesame);
         check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
@@ -91,9 +88,6 @@ public class ProfileFragment extends Fragment {
 
         });
 
-
-
-        name.setText(email);
         return rootview;
     }
 

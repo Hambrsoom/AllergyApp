@@ -1,6 +1,9 @@
 package com.example.allergyapp.ui.RecipesFragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +34,18 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textViewTitle;
-        TextView recipeDescr;
-        TextView textViewIngredient;
+        TextView linkTv;
+
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.recipeImage);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            linkTv = itemView.findViewById(R.id.textViewLink);
+            if (linkTv != null) {
+                linkTv.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+
         }
     }
 
@@ -53,7 +61,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         
-        Recipe recipe = recipeList.get(position);
+        final Recipe recipe = recipeList.get(position);
         holder.textViewTitle.setText(recipe.getName());
 
 
@@ -69,6 +77,13 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                     .into(holder.imageView);
 
             holder.imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.crop_image_menu_flip));
+            holder.linkTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(recipe.recipeUrl));
+                    context.startActivity(browserIntent);
+                }
+            });
 
 
     }
