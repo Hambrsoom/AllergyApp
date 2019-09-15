@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.allergyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,8 +48,6 @@ public class ProfileFragment extends Fragment {
         rootview =  inflater.inflate(R.layout.profile_fragment, container, false);
         name = rootview.findViewById(R.id.textView);
         submitBtn = rootview.findViewById(R.id.submit);
-        allergies = rootview.findViewById(R.id.textView2);
-        tx3  = rootview.findViewById(R.id.textView3);
         check1 = (CheckBox)rootview.findViewById(R.id.sesame);
         check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
         check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
@@ -136,7 +135,7 @@ public class ProfileFragment extends Fragment {
             s = s.substring(0,s.length()-1);
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
-
+        Toast toast = Toast.makeText(ProfileFragment.this,"Generating PDF",Toast.LENGTH_LONG);
         //ADD TOAST IN HERE LATER !
     }
 }
