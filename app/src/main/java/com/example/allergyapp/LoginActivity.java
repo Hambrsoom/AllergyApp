@@ -53,58 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.password);
         btnLogin    = findViewById(R.id.login);
         btnRegister = findViewById(R.id.register);
-<<<<<<< HEAD
-=======
         rq = Volley.newRequestQueue(this);
-        jsonParse();
-
     }
-
-    private void jsonParse() {
-
-
-        JsonObjectRequest objReq = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-                            String hits = response.getString("hits");
-                            for (int i=0; i <= 9; i++) {
-                                JSONObject hitsObject = new JSONArray(hits).getJSONObject(i);
-                                Recipe recipeObject = new Recipe();
-                                String recipe = hitsObject.getString("recipe");
-                                String uriString = new JSONObject(recipe).getString("uri");
-                                recipeObject.setDescription(uriString);
-                                String labelString = new JSONObject(recipe).getString("label");
-                                recipeObject.setName(labelString);
-                                String ingredients = new JSONObject(recipe).getString("ingredientLines");
-                                recipeObject.setIngredients(ingredients);
-                                String image = new JSONObject(recipe).getString("image");
-                                recipeObject.setImageUrl(image);
-                                recipeList.add(recipeObject);
-
-                            }
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-        );
-        rq.add(objReq);
->>>>>>> 29eb38f33e48df9b017df4ebfe3d710ff9f9854b
-    }
-
     public void onClickLogin(View view){
         if(email.length()>0 && password.length()>0){
             mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
