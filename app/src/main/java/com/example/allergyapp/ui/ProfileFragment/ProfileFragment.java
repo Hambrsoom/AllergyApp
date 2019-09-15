@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 public class ProfileFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String email = user.getEmail();
+
     String UID   = user.getUid();
     TextView allergies;
     Button submitBtn;
@@ -51,6 +52,8 @@ public class ProfileFragment extends Fragment {
         check4 = (CheckBox)rootview.findViewById(R.id.eggs);
         check5 = (CheckBox)rootview.findViewById(R.id.fish);
         check6 = (CheckBox)rootview.findViewById(R.id.soy);
+        tx3 = rootview.findViewById(R.id.textView3);
+        tx3.setText("Welcome "+new String(Character.toChars(0x1F44B)));
 
         //add listener for single value event
                 (FirebaseDatabase.getInstance().getReference()).child("users").child(UID).addValueEventListener(new ValueEventListener() {
