@@ -61,7 +61,6 @@ public class ProfileFragment extends Fragment {
                     public void onDataChange(DataSnapshot snapshot) {
 
                         temp = snapshot.getValue().toString();
-                        allergies.setText(temp);
 
                         if (temp.contains("Dairy")) {
                             check1.setChecked(true);
@@ -135,7 +134,8 @@ public class ProfileFragment extends Fragment {
             s = s.substring(0,s.length()-1);
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
-        Toast toast = Toast.makeText(ProfileFragment.this,"Generating PDF",Toast.LENGTH_LONG);
+        //Toast toast = Toast.makeText(ProfileFragment.this,"Generating PDF",Toast.LENGTH_LONG);
+
         //ADD TOAST IN HERE LATER !
     }
 }
