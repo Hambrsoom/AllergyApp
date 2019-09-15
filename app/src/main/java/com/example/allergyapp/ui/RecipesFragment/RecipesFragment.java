@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -34,6 +35,8 @@ public class RecipesFragment extends Fragment {
     private RecipesViewModel mViewModel;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    TextView resultTv;
+    TextView header2;
     Button searchRecipe;
     EditText editText;
     RecipesAdapter mAdapter;
@@ -52,6 +55,10 @@ public class RecipesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipes_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
         recyclerView.setHasFixedSize(true);
+        resultTv = rootView.findViewById(R.id.headerTv);
+        header2 = rootView.findViewById(R.id.headerTv2);
+        resultTv.setVisibility(View.GONE);
+        header2.setVisibility(View.GONE);
         editText = rootView.findViewById(R.id.editText);
         searchRecipe = rootView.findViewById(R.id.searchRecipe);
         searchRecipe.setOnClickListener(new View.OnClickListener(){
@@ -104,6 +111,9 @@ public class RecipesFragment extends Fragment {
                                 recipeList.add(recipeObject);
 
                             }
+                            resultTv.setText(recipeList.size()+" Results");
+//                            header2.setVisibility(View.VISIBLE);
+                            resultTv.setVisibility(View.VISIBLE);
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e){
                             e.printStackTrace();
