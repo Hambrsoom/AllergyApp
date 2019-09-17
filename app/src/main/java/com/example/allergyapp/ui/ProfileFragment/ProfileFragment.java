@@ -1,5 +1,6 @@
 package com.example.allergyapp.ui.ProfileFragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 public class ProfileFragment extends Fragment {
@@ -29,6 +31,7 @@ public class ProfileFragment extends Fragment {
     String UID   = user.getUid();
     TextView allergies;
     Button submitBtn;
+    Button resetBtn;
     View rootview;
 
     TextView tx3;
@@ -45,15 +48,16 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        rootview =  inflater.inflate(R.layout.profile_fragment, container, false);
+        rootview  =  inflater.inflate(R.layout.profile_fragment, container, false);
         submitBtn = rootview.findViewById(R.id.submit);
-        check1 = (CheckBox)rootview.findViewById(R.id.sesame);
-        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
-        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
-        check5 = (CheckBox)rootview.findViewById(R.id.fish);
-        check6 = (CheckBox)rootview.findViewById(R.id.soy);
-        tx3 = rootview.findViewById(R.id.textView3);
+        resetBtn  = rootview.findViewById(R.id.resetbtn);
+        check1    = rootview.findViewById(R.id.sesame);
+        check2    = rootview.findViewById(R.id.peanuts);
+        check3    = rootview.findViewById(R.id.tree_nuts);
+        check4    = rootview.findViewById(R.id.eggs);
+        check5    = rootview.findViewById(R.id.fish);
+        check6    = rootview.findViewById(R.id.soy);
+        tx3       = rootview.findViewById(R.id.textView3);
         tx3.setText("Welcome "+new String(Character.toChars(0x1F44B)));
 
         //add listener for single value event
@@ -91,6 +95,12 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+        resetBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onClickReset(v);
+            }
+        });
 
         return rootview;
     }
@@ -104,12 +114,6 @@ public class ProfileFragment extends Fragment {
     public void onClickSave(View view){
 
         String s = "";
-        check1 = (CheckBox)rootview.findViewById(R.id.sesame);
-        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
-        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
-        check5 = (CheckBox)rootview.findViewById(R.id.fish);
-        check6 = (CheckBox)rootview.findViewById(R.id.soy);
 
         if (check1.isChecked()) {
             s += "Dairy,";
@@ -133,7 +137,21 @@ public class ProfileFragment extends Fragment {
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
         Toast.makeText(getActivity(),"Saved", Toast.LENGTH_LONG).show();
-
+    }
+    public void onClickReset(View view){
+        FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue("Empty");
+        Toast.makeText(getActivity(),"Reset", Toast.LENGTH_LONG).show();
+        check1.setChecked(false);
+        check2.setChecked(false);
+        check3.setChecked(false);
+        check4.setChecked(false);
+        check5.setChecked(false);
+        check6.setChecked(false);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
 
     }
 }
