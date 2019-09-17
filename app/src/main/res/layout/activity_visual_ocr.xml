@@ -30,20 +30,31 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="Verify your Allergy!"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:paddingBottom="20dp"
-                        android:text="Please insert a picture of the product that you want to verify your allergy for!"
-                        android:textColor="@android:color/black"
-                        android:textSize="20dp" />
+                        android:text="Take or Select a photo of the ingredients of the food you want to test your allergy for. Make sure you crop anything around the ingredient text!"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/imageIv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxHeight="250dp" />
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/salad" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

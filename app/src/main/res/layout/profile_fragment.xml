@@ -38,7 +38,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/imgcircle"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -67,11 +68,21 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
             android:text="Allergies"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
             android:textSize="30sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="Please check the boxes of the food that you are allergic to" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -96,10 +107,10 @@
                     android:text="Peanuts" />
 
                 <CheckBox
-                    android:id="@+id/cheese"
+                    android:id="@+id/milk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cheese" />
+                    android:text="Milk" />
             </LinearLayout>
 
             <LinearLayout
