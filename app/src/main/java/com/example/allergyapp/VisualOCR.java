@@ -38,7 +38,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -62,7 +61,7 @@ public class VisualOCR extends AppCompatActivity {
 
     String cameraPermission[];
     String storagePermission[];
-    CardView cardView;
+
     StringBuilder sb;
 
     @Override
@@ -80,7 +79,8 @@ public class VisualOCR extends AppCompatActivity {
         verifyAllergiesBtn = findViewById(R.id.viewAllergiesBtn);
         verifyAllergiesBtn.setVisibility(View.GONE);
         mPreviewIv = findViewById(R.id.imageIv);
-        cardView = findViewById(R.id.cardView1);
+        resultTv = findViewById(R.id.resultTv);
+        resultTv.setVisibility(View.GONE);
 
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -183,6 +183,7 @@ public class VisualOCR extends AppCompatActivity {
                         verdictTv.setText("Oh helllll nah, put it back! This contains"  + allergy.toLowerCase() + ".");
                     }
 
+                    mPreviewIv.setVisibility(View.GONE);
                     verdictTv.setVisibility(View.VISIBLE);
                     verifyAllergiesBtn.setVisibility(View.GONE);
 
@@ -301,7 +302,6 @@ public class VisualOCR extends AppCompatActivity {
                 txtViewTop.setVisibility(View.GONE);
                 cameraBtn.setVisibility(View.GONE);
                 galleryBtn.setVisibility(View.GONE);
-                cardView.setVisibility(View.GONE);
 
             }
             else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

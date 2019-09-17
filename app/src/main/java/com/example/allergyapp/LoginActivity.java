@@ -40,10 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth       = FirebaseAuth.getInstance();
-        email       = findViewById(R.id.email);
-        password    = findViewById(R.id.password);
-        btnLogin    = findViewById(R.id.login);
-        btnRegister = findViewById(R.id.register);
+        email       = findViewById(R.id.emailEditText);
+        password    = findViewById(R.id.passwordEditText);
+        btnLogin    = findViewById(R.id.loginBtn);
+        btnRegister = findViewById(R.id.registerBtn);
         rq = Volley.newRequestQueue(this);
     }
     public void onClickLogin(View view){
