@@ -43,7 +43,7 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     TextView resultTv;
-    TextView header2;
+//    TextView header2;
     Button searchRecipe;
     EditText editText;
     RecipesAdapter mAdapter;
@@ -66,9 +66,9 @@ public class RecipesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
         resultTv = rootView.findViewById(R.id.headerTv);
-        header2 = rootView.findViewById(R.id.headerTv2);
+//        header2 = rootView.findViewById(R.id.headerTv2);
         resultTv.setVisibility(View.GONE);
-        header2.setVisibility(View.GONE);
+//        header2.setVisibility(View.GONE);
         editText = rootView.findViewById(R.id.editText);
         searchRecipe = rootView.findViewById(R.id.searchRecipe);
 
@@ -124,7 +124,7 @@ public class RecipesFragment extends Fragment {
                                         String recipe = hitsObject.getString("recipe");
                                         String uriString = new JSONObject(recipe).getString("url");
                                         recipeObject.setRecipeUrl(uriString);
-                                        String labelString = new JSONObject(recipe).getString("label");
+                                         String labelString = new JSONObject(recipe).getString("label");
                                         recipeObject.setName(labelString);
                                         String ingredients = new JSONObject(recipe).getString("ingredientLines");
                                         recipeObject.setIngredients(ingredients);
@@ -134,7 +134,7 @@ public class RecipesFragment extends Fragment {
 
                                     }
                                     resultTv.setText(recipeList.size()+" Results");
-                                    header2.setVisibility(View.VISIBLE);
+//                                    header2.setVisibility(View.VISIBLE);
                                     resultTv.setVisibility(View.VISIBLE);
                                     mAdapter.notifyDataSetChanged();
                                 } catch (JSONException e){
