@@ -184,7 +184,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/borderbutton"
                 android:onClick="onClickSave"
-                android:text="Submit"
+                android:text="Save"
                 android:textSize="15dp" />
         </LinearLayout>
 
