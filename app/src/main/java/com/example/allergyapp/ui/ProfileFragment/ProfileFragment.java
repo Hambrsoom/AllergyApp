@@ -33,6 +33,7 @@ public class ProfileFragment extends Fragment {
     Button submitBtn;
     Button resetBtn;
     View rootview;
+    TextView userName;
 
     TextView tx3;
 
@@ -61,6 +62,7 @@ public class ProfileFragment extends Fragment {
         checkShellFish  = rootview.findViewById(R.id.shellFish);
         checkWheat      = rootview.findViewById(R.id.wheat);
         tx3             = rootview.findViewById(R.id.textView3);
+        userName        = rootview.findViewById(R.id.userName);
         tx3.setText("Welcome "+new String(Character.toChars(0x1F44B)));
 
         //add listener for single value event
@@ -96,6 +98,19 @@ public class ProfileFragment extends Fragment {
                     }
 
                 });
+        (FirebaseDatabase.getInstance().getReference()).child("user_profile").child(UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                String tempUser = snapshot.getValue().toString();
+
+                userName.setText(tempUser);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
         submitBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
