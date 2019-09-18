@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
                             checkTreeNuts.setChecked(true);
                         }if (temp.contains("eggs")) {
                             checkEggs.setChecked(true);
-                        }if (temp.contains("shellfish")) {
+                        }if (temp.contains("fish") && temp.equalsIgnoreCase("shellfish")) {
                             checkFish.setChecked(true);
                         }if (temp.contains("soy")) {
                             checkSoy.setChecked(true);
