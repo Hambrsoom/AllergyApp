@@ -180,7 +180,7 @@ public class VisualOCR extends AppCompatActivity {
                         verdictTv.setText("No worries, you're good to go!");
                     }
                     else {
-                        verdictTv.setText("Oh helllll nah, put it back! This contains"  + allergy.toLowerCase() + ".");
+                        verdictTv.setText("Oh helllll nah, put it back! This contains "  + allergy.toLowerCase() + ".");
                     }
 
                     mPreviewIv.setVisibility(View.GONE);

@@ -173,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/borderbutton"
+                android:onClick="onClickReset"
                 android:text="Reset"
                 android:textSize="15dp" />
 

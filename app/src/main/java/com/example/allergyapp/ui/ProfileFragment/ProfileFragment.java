@@ -1,5 +1,6 @@
 package com.example.allergyapp.ui.ProfileFragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 public class ProfileFragment extends Fragment {
@@ -29,11 +31,12 @@ public class ProfileFragment extends Fragment {
     String UID   = user.getUid();
     TextView allergies;
     Button submitBtn;
+    Button resetBtn;
     View rootview;
 
     TextView tx3;
 
-    private CheckBox check1, check2, check3, check4, check5, check6;
+    private CheckBox checkSesame, checkPeanuts, checkTreeNuts, checkEggs, checkFish, checkSoy, checkMilk, checkShellFish,checkWheat;
 
     private ProfileViewModel mViewModel;
 
@@ -45,15 +48,19 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        rootview =  inflater.inflate(R.layout.profile_fragment, container, false);
-        submitBtn = rootview.findViewById(R.id.submit);
-        check1 = (CheckBox)rootview.findViewById(R.id.sesame);
-        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
-        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
-        check5 = (CheckBox)rootview.findViewById(R.id.fish);
-        check6 = (CheckBox)rootview.findViewById(R.id.soy);
-        tx3 = rootview.findViewById(R.id.textView3);
+        rootview        =  inflater.inflate(R.layout.profile_fragment, container, false);
+        submitBtn       = rootview.findViewById(R.id.submit);
+        resetBtn        = rootview.findViewById(R.id.resetbtn);
+        checkSesame     = rootview.findViewById(R.id.sesame);
+        checkPeanuts    = rootview.findViewById(R.id.peanuts);
+        checkTreeNuts   = rootview.findViewById(R.id.tree_nuts);
+        checkEggs       = rootview.findViewById(R.id.eggs);
+        checkFish       = rootview.findViewById(R.id.fish);
+        checkSoy        = rootview.findViewById(R.id.soy);
+        checkMilk       = rootview.findViewById(R.id.milk);
+        checkShellFish  = rootview.findViewById(R.id.shellFish);
+        checkWheat      = rootview.findViewById(R.id.wheat);
+        tx3             = rootview.findViewById(R.id.textView3);
         tx3.setText("Welcome "+new String(Character.toChars(0x1F44B)));
 
         //add listener for single value event
@@ -63,18 +70,24 @@ public class ProfileFragment extends Fragment {
 
                         temp = snapshot.getValue().toString();
 
-                        if (temp.contains("Dairy")) {
-                            check1.setChecked(true);
-                        }if (temp.contains("Peanuts")) {
-                            check2.setChecked(true);
-                        }if (temp.contains("Tree Nuts")) {
-                            check3.setChecked(true);
-                        }if (temp.contains("Eggs")) {
-                            check4.setChecked(true);
-                        }if (temp.contains("Shellfish")) {
-                            check5.setChecked(true);
-                        }if (temp.contains("Soy")) {
-                            check6.setChecked(true);
+                        if (temp.contains("sesame")) {
+                            checkSesame.setChecked(true);
+                        }if (temp.contains("peanuts")) {
+                            checkPeanuts.setChecked(true);
+                        }if (temp.contains("tree nuts")) {
+                            checkTreeNuts.setChecked(true);
+                        }if (temp.contains("eggs")) {
+                            checkEggs.setChecked(true);
+                        }if (temp.contains("shellfish")) {
+                            checkFish.setChecked(true);
+                        }if (temp.contains("soy")) {
+                            checkSoy.setChecked(true);
+                        }if (temp.contains("milk")) {
+                            checkMilk.setChecked(true);
+                        }if (temp.contains("shellfish")){
+                            checkShellFish.setChecked(true);
+                        }if (temp.contains("wheat")){
+                            checkWheat.setChecked(true);
                         }
                         temp = "Empty";
                     }
@@ -91,6 +104,12 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+        resetBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onClickReset(v);
+            }
+        });
 
         return rootview;
     }
@@ -104,28 +123,28 @@ public class ProfileFragment extends Fragment {
     public void onClickSave(View view){
 
         String s = "";
-        check1 = (CheckBox)rootview.findViewById(R.id.sesame);
-        check2 = (CheckBox)rootview.findViewById(R.id.peanuts);
-        check3 = (CheckBox)rootview.findViewById(R.id.tree_nuts);
-        check4 = (CheckBox)rootview.findViewById(R.id.eggs);
-        check5 = (CheckBox)rootview.findViewById(R.id.fish);
-        check6 = (CheckBox)rootview.findViewById(R.id.soy);
 
-        if (check1.isChecked()) {
-            s += "Dairy,";
-        }if (check2.isChecked()) {
-            s += "Peanuts,";
-        }if (check3.isChecked()) {
-            s += "Tree Nuts,";
-        }if (check4.isChecked()) {
-            s += "Eggs,";
-        }if (check5.isChecked()) {
-            s += "Shellfish,";
-        }if (check6.isChecked()) {
-            s += "Soy,";
+        if (checkSesame.isChecked()) {
+            s += "sesame,";
+        }if (checkPeanuts.isChecked()) {
+            s += "peanuts,";
+        }if (checkTreeNuts.isChecked()) {
+            s += "tree nuts,";
+        }if (checkEggs.isChecked()) {
+            s += "eggs,";
+        }if (checkFish.isChecked()) {
+            s += "fish,";
+        }if (checkSoy.isChecked()) {
+            s += "soy,";
+        }if (checkMilk.isChecked()){
+            s+= "milk,";
+        }if (checkWheat.isChecked()){
+            s+="wheat,";
+        }if (checkShellFish.isChecked()){
+            s+="shellfish,";
         }
-        if(!check1.isChecked() && !check2.isChecked() && !check3.isChecked() && !check4.isChecked() &&
-        !check5.isChecked() && !check6.isChecked()){
+        if(!checkSesame.isChecked() && !checkPeanuts.isChecked() && !checkTreeNuts.isChecked() && !checkEggs.isChecked() &&
+        !checkFish.isChecked() && !checkSoy.isChecked()){
             s += "Empty,";
         }
         if (s.length() > 1) {
@@ -133,7 +152,24 @@ public class ProfileFragment extends Fragment {
             FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue(s);
         }
         Toast.makeText(getActivity(),"Saved", Toast.LENGTH_LONG).show();
-
+    }
+    public void onClickReset(View view){
+        FirebaseDatabase.getInstance().getReference().child("users").child(UID).setValue("Empty");
+        Toast.makeText(getActivity(),"Reset", Toast.LENGTH_LONG).show();
+        checkSesame.setChecked(false);
+        checkPeanuts.setChecked(false);
+        checkTreeNuts.setChecked(false);
+        checkEggs.setChecked(false);
+        checkFish.setChecked(false);
+        checkSoy.setChecked(false);
+        checkMilk.setChecked(false);
+        checkShellFish.setChecked(false);
+        checkWheat.setChecked(false);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
 
     }
 }
