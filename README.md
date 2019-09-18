@@ -9,5 +9,5 @@
 
 ## Preview 
 ![Alt Text](app/src/main/res/drawable/login.png)
-![Alt Text](app/src/main/res/drawable/profileScreen.png)
+![Alt Text](app/src/main/res/drawable/profilescreen.png)
 ![Alt Text](app/src/main/res/drawable/camera.png)
