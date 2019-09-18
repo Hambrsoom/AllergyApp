@@ -45,7 +45,7 @@
                         android:layout_marginBottom="20dp"
                         android:gravity="center"
                         android:paddingBottom="20dp"
-                        android:text="Take or Select a photo of the ingredients of the food you want to test your allergy for. Make sure you crop anything around the ingredient text!"
+                        android:text="Don't know if the product you're holding in your hands is safe for you to eat? Take or Select a picture of its ingredients to find out! Use the cropping tool to make sure the picture only focuses on the list of ingredients."
                         android:textColor="@android:color/darker_gray"
                         android:textSize="15dp" />
 

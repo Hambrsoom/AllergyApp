@@ -18,13 +18,22 @@
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/search"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginRight="25dp"/>
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
+
+                android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="Search a Recipe"
                 android:inputType="textPersonName" />

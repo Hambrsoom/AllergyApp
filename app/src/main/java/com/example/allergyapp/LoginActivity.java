@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     Button btnLogin;
     Button btnRegister;
+    LinearLayout extraCredentials;
+    EditText firstName;
+    EditText lastName;
     FirebaseAuth mAuth;
     TextView txt;
     List<Recipe> recipeList = new ArrayList<>();
@@ -44,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         password    = findViewById(R.id.passwordEditText);
         btnLogin    = findViewById(R.id.loginBtn);
         btnRegister = findViewById(R.id.registerBtn);
+        firstName = findViewById(R.id.firstNameEt);
+        lastName = findViewById(R.id.lastNameEt);
+        extraCredentials = findViewById(R.id.nameCredentialsLl);
+        extraCredentials.setVisibility(View.GONE);
         rq = Volley.newRequestQueue(this);
     }
     public void onClickLogin(View view){
@@ -72,6 +80,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickRegister(View view){
+        if (extraCredentials.getVisibility() == (View.GONE)){
+            extraCredentials.setVisibility(View.VISIBLE);
+            return;
+        }
+        //TODO: store the name and last name
+        extraCredentials.setVisibility(View.VISIBLE);
         if(email.length()>0 && password.length()>0){
             mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
