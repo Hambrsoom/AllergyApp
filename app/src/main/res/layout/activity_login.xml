@@ -103,10 +103,18 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/registeringBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/firstNameEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/nameTv"
@@ -116,27 +124,14 @@
                     android:textColor="@android:color/black"
                     tools:text="Name" />
 
-                <EditText
-                    android:id="@+id/firstNameEt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:inputType="textPersonName" />
-
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/registeringBox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/lastNameTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Last Name"
-                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/lastNameEt"
@@ -144,6 +139,13 @@
                     android:layout_height="wrap_content"
                     android:hint="Last Name"
                     android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/lastNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Last Name"
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
         </LinearLayout>

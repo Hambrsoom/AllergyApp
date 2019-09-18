@@ -92,7 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         FirebaseDatabase.getInstance().getReference().child("users").child(task.getResult().getUser().getUid()).setValue("Empty");
-                        FirebaseDatabase.getInstance().getReference().child("user_profile").child(task.getResult().getUser().getUid()).setValue("firstName,LastName");
+                        firstName = findViewById(R.id.firstNameEt);
+                        lastName = findViewById(R.id.lastNameEt);
+                        FirebaseDatabase.getInstance().getReference().child("user_profile").child(task.getResult().getUser().getUid()).setValue(lastName.getText().toString()+ "," +firstName.getText().toString());
                         logIn();
                     }
                     else {
