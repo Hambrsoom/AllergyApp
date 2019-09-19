@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         checkMilk       = rootview.findViewById(R.id.milk);
         checkShellFish  = rootview.findViewById(R.id.shellFish);
         checkWheat      = rootview.findViewById(R.id.wheat);
-        tx3             = rootview.findViewById(R.id.textView3);
+        tx3             = rootview.findViewById(R.id.welcomeTv);
         userName        = rootview.findViewById(R.id.userName);
         tx3.setText("Welcome "+new String(Character.toChars(0x1F44B)));
 
