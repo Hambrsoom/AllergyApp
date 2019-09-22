@@ -52,6 +52,7 @@ public class VisualOCR extends AppCompatActivity {
     private Uri image_uri;
     private TextView resultTv;
     private TextView txtViewTop;
+    private TextView titleTv;
     private TextView verdictTv;
 
     private static final int CAMERA_REQUEST_CODE = 200;
@@ -81,6 +82,7 @@ public class VisualOCR extends AppCompatActivity {
         mPreviewIv = findViewById(R.id.imageIv);
         resultTv = findViewById(R.id.resultTv);
         resultTv.setVisibility(View.GONE);
+        titleTv = findViewById(R.id.textView6);
 
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -140,6 +142,7 @@ public class VisualOCR extends AppCompatActivity {
 
                 // Can conclude it is not safe
                 verdictTv.setText("Oh helllll nah, put it back! This contains " + allergy.toLowerCase() + ".");
+                mPreviewIv.setImageResource(R.drawable.nausea);
                 verdictTv.setVisibility(View.VISIBLE);
                 verifyAllergiesBtn.setVisibility(View.GONE);
             }
@@ -165,6 +168,7 @@ public class VisualOCR extends AppCompatActivity {
             (FirebaseDatabase.getInstance().getReference()).child("synonym").child(a.toLowerCase()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
+                    titleTv.setText("And the result is...");
                     if(snapshot == null || snapshot.getValue() == null)
                         return;
                     String stringOfSynonyms = snapshot.getValue().toString();
@@ -177,13 +181,15 @@ public class VisualOCR extends AppCompatActivity {
                     }
 
                     if(allergy.isEmpty()) {
+                        mPreviewIv.setImageResource(R.drawable.drooling);
                         verdictTv.setText("No worries, you're good to go!");
                     }
                     else {
+                        mPreviewIv.setImageResource(R.drawable.nausea);
                         verdictTv.setText("Oh helllll nah, put it back! This contains "  + allergy.toLowerCase() + ".");
                     }
 
-                    mPreviewIv.setVisibility(View.GONE);
+                    mPreviewIv.setVisibility(View.VISIBLE);
                     verdictTv.setVisibility(View.VISIBLE);
                     verifyAllergiesBtn.setVisibility(View.GONE);
 

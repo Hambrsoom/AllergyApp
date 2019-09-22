@@ -7,7 +7,17 @@
 - Offer Recipes that do not contain food that you are allergic to.
 - Offer the ability to scan ingredients and let you know if the food you are about to buy/eat is dangerous for you.
 
-## Preview 
-![Alt Text](app/src/main/res/drawable/login.png)
-![Alt Text](app/src/main/res/drawable/profilescreen.png)
-![Alt Text](app/src/main/res/drawable/camera.png)
+## Preview of the App
+### Login page
+![Alt Text](app/src/main/res/drawable/screenlogin.png)
+### Profile page
+![Alt Text](app/src/main/res/drawable/screenprofilepage.png)
+### Recipe page
+![Alt Text](app/src/main/res/drawable/screenrecipepage.png)
+### Food Verfication page
+![Alt Text](app/src/main/res/drawable/screenverification.png)
+### Result page
+![Alt Text](app/src/main/res/drawable/screenvalidfood.png)
+
+![Alt Text](app/src/main/res/drawable/screeninvalidfood.png)
+
